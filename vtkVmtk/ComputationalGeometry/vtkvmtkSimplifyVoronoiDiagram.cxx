@@ -10,11 +10,11 @@ Version:   $Revision: 1.4 $
   See LICENSE file for details.
 
   Portions of this code are covered under the VTK copyright.
-  See VTKCopyright.txt or http://www.kitware.com/VTKCopyright.htm 
+  See VTKCopyright.txt or http://www.kitware.com/VTKCopyright.htm
   for details.
 
-     This software is distributed WITHOUT ANY WARRANTY; without even 
-     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+     This software is distributed WITHOUT ANY WARRANTY; without even
+     the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
@@ -155,7 +155,7 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
           anyUnremovable = true;
           isUnremovable[id] = true;
           }
-        else 
+        else
           {
           vtkErrorMacro(<< "Out of range id found among UnremovablePointIds!");
           }
@@ -196,12 +196,8 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
   //   }
   poly->SetPolys(currentPolys);
 
-#if ((VTK_MAJOR_VERSION >= 9 && VTK_MINOR_VERSION >= 0 && VTK_BUILD_VERSION >= 20221108) || (VTK_MAJOR_VERSION >= 9 && VTK_MINOR_VERSION >= 2 && VTK_BUILD_VERSION >= 0))
   currentLinks->SetDataSet(poly);
   currentLinks->BuildLinks();
-#else
-  currentLinks->BuildLinks(poly);
-#endif
 
   anyRemoved = true;
   while (anyRemoved)
@@ -213,7 +209,7 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
     for (i=0; i<currentPolys->GetNumberOfCells(); i++)
       {
       currentPolys->GetNextCell(npts,pts);
-      
+
       if (npts==0)
         {
         continue;
@@ -226,7 +222,7 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
           {
           considerPoint = false;
           ncells = currentLinks->GetNcells(pts[j]);
-        
+
           if (ncells==1)
             {
             considerPoint = true;
@@ -279,9 +275,9 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
             }
           }
         }
- 
+
       if (newCell->GetNumberOfIds() > 2)
-        {     
+        {
         newCellId = newPolys->InsertNextCell(newCell);
         }
       }
@@ -296,12 +292,8 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
     // #pragma message "vtkvmtkSimplifyVoronoiDiagram::RequestData not functional. Must be updated based on Kitware/VTK@88efc809a"
     // vtkErrorMacro(<< "!");
     poly->SetPolys(currentPolys);
-#if ((VTK_MAJOR_VERSION >= 9 && VTK_MINOR_VERSION >= 0 && VTK_BUILD_VERSION >= 20221108) || (VTK_MAJOR_VERSION >= 9 && VTK_MINOR_VERSION >= 2 && VTK_BUILD_VERSION >= 0))
     currentLinks->SetDataSet(poly);
     currentLinks->BuildLinks();
-#else
-    currentLinks->BuildLinks(poly);
-#endif
 
     newPolys->Delete();
     newCell->Delete();
@@ -310,7 +302,7 @@ int vtkvmtkSimplifyVoronoiDiagram::RequestData(
       break;
       }
     }
-  
+
   if (anyUnremovable && !this->IncludeUnremovable)
     {
     vtkCellArray* newPolys = vtkCellArray::New();
