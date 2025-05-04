@@ -49,11 +49,7 @@ public:
   vtkTypeMacro(vtkvmtkITKArchetypeImageSeriesReader,vtkImageAlgorithm);
   void PrintSelf(std::ostream& os, vtkIndent indent) override;
 
-#if (ITK_VERSION_MAJOR >= 5)
-  typedef itk::SpatialOrientationEnums::ValidCoordinateOrientations CoordinateOrientationCode;
-#else
   typedef itk::SpatialOrientation::ValidCoordinateOrientationFlags CoordinateOrientationCode;
-#endif
 
   ///
   /// Specify the archetype filename for the series.
@@ -114,26 +110,16 @@ public:
   /// Set the orientation of the output image
   void SetDesiredCoordinateOrientationToAxial ()
     {
-#if (ITK_VERSION_MAJOR >= 5)
-    this->DesiredCoordinateOrientation =
-      itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_RAI;
-#else
     this->DesiredCoordinateOrientation =
       itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_RAI;
-#endif
     ///     itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_RPS;
     this->UseNativeCoordinateOrientation = 0;
     this->Modified();
     }
   void SetDesiredCoordinateOrientationToCoronal ()
     {
-#if (ITK_VERSION_MAJOR >= 5)
-    this->DesiredCoordinateOrientation =
-      itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_RSA;
-#else
     this->DesiredCoordinateOrientation =
       itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_RSA;
-#endif
     ///      itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_RIP;
     this->UseNativeCoordinateOrientation = 0;
     this->Modified();
@@ -141,11 +127,7 @@ public:
   void SetDesiredCoordinateOrientationToSagittal ()
   {
     this->DesiredCoordinateOrientation =
-#if (ITK_VERSION_MAJOR >= 5)
-      itk::SpatialOrientationEnums::ValidCoordinateOrientations::ITK_COORDINATE_ORIENTATION_ASL;
-#else
       itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_ASL;
-#endif
     ///      itk::SpatialOrientation::ITK_COORDINATE_ORIENTATION_AIR;
     this->UseNativeCoordinateOrientation = 0;
     this->Modified();

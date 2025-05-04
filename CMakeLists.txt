@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12...3.29.1)
+cmake_minimum_required(VERSION 3.3)
 
 project(VMTK)
 
@@ -27,7 +27,7 @@ if(VMTK_WITH_LIBRARY_VERSION)
      )
 endif()
 
-find_package( Python3 COMPONENTS Interpreter )
+find_package( PythonInterp )
 if (NOT VMTK_PYTHON_VERSION)
   set(VMTK_PYTHON_VERSION "python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}" CACHE STRING "" FORCE)
 endif ()
@@ -309,17 +309,11 @@ if(VMTK_SCRIPTS_ENABLED)
     ${VMTK_BINARY_DIR}/VMTKConfig.cmake
   @ONLY IMMEDIATE
   )
-  install(FILES ${VMTK_BINARY_DIR}/VMTKConfig.cmake
-    TYPE LIB
-  )
 
   configure_file(
     ${VMTK_SOURCE_DIR}/CMake/VMTKUse.cmake.in
     ${VMTK_BINARY_DIR}/VMTKUse.cmake
   @ONLY IMMEDIATE
-  )
-  install(FILES ${VMTK_BINARY_DIR}/VMTKUse.cmake
-    TYPE LIB
   )
 
 endif()
